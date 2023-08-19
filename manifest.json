@@ -27,8 +27,5 @@
             "resources": [ "images/*", "js/*", "css/*" ],
             "matches": [ "<all_urls>" ]
         }
-    ],
-    "externally_connectable": {
-        "matches": []
-    }
+    ]
 }
