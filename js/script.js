@@ -1,31 +1,28 @@
-// Toggle password field visibility
 jQuery( document ).ready( function($) {
+    
+    // Toggle password field visibility
     $("body").on('click', '.toggle-password', function() {
         $("i", this).toggleClass("fa-eye-slash");
         
         var input = $(this).prev();
-        
+
         if (input.attr("type") === "password") {
             input.attr("type", "text");
         } else {
             input.attr("type", "password");
         }
     });
-});
 
 
 
-// Auto select all on generated pass field on click
-jQuery( document ).ready( function($) {
+    // Auto select all on generated pass field on click
     $('#pg-result-pass').on('touchstart click', function(){ 
         $(this).select(); 
     });
-});
 
 
     
-// Hide generated password field and response on reset
-jQuery( document ).ready( function($) {
+    // Hide generated password field and response on reset
     $("input[type='reset']").closest('form').on('reset', function(event) {
         $("#pg-result").hide();
         $("#pg-result-pass").val("");
@@ -33,12 +30,10 @@ jQuery( document ).ready( function($) {
         $('#pg-message #fail').html("");
         $('#pg-message #reset').html("");
     });
-});
 
 
 
-// Form functionality
-jQuery( document ).ready( function($) {
+    // Form functionality
     $( '#passgrinder-form' ).submit(function(e){
         e.preventDefault();
         
@@ -87,11 +82,26 @@ jQuery( document ).ready( function($) {
         }
         
     });
-});
 
 
 
-// Field focus on load
-jQuery( document ).ready( function($) {
+    // Field focus on load
     $('#pg-password').focus();
-});
+
+
+    
+    // Use current tab domain as salt
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        var tab = tabs[0];
+        var url = new URL(tab.url);
+        var domain = url.hostname;
+        $('#pg-autofill-domain').click(function(){
+            // Toggle icon and value
+            $("i", this).toggleClass("fa-unlink");
+            $('#pg-salt').val($('#pg-salt').val() == domain ? '' : domain);
+        });
+    })
+
+    
+
+}); // End jQuery( document ).ready( function($) {
