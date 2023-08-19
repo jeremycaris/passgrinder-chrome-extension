@@ -88,3 +88,10 @@ jQuery( document ).ready( function($) {
         
     });
 });
+
+
+
+// Field focus on load
+jQuery( document ).ready( function($) {
+    $('#pg-password').focus();
+});
